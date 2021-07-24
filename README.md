@@ -53,7 +53,7 @@ curl "http://localhost:8080/write?data=console.log('hello')&path=hello.js"
 | `/read-text-file` | [read text file](#read-text-file) | `--allow-read` | `/cat`, `/read` |
 | `/remove` | [remove file or directory](#remove-file-or-directory) | `--allow-write` | `/rm` |
 | `/rename` | [rename file or directory](#rename-file-or-directory) | `--allow-write` | `/mv`, `/read` |
-| `write-text-file` | [write text file](#write-text-file) | `--allow-write` | `/write` |
+| `/write-text-file` | [write text file](#write-text-file) | `--allow-write` | `/write` |
 
 ## usage
 
