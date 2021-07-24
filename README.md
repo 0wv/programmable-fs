@@ -6,13 +6,14 @@ it is file server with user friendly api.
 
 ```ts
 import { ProgrammableFS } from './mod.ts'
+import type { Event, WriteTextFileEventData } from './mod.ts'
 
 const server = new ProgrammableFS()
-server.onEvent = event => {
+server.onEvent = (event: Event) => {
   switch (event.type) {
     case 'mkdir':
       console.log('hook by mkdir')
-      const path = JSON.parse(event.data || '{ path: "" }')
+      const path = JSON.parse(event.data || '{ path: "" }') as WriteTextFileEventData
       console.log(`path: ${path}`)
       break
 
