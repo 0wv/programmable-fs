@@ -1,6 +1,14 @@
+![Deno](https://img.shields.io/badge/Deno-000?logo=Deno&style=for-the-badge)
+![TypeScript](https://img.shields.io/badge/TypeScript-000?logo=TypeScript&style=for-the-badge)
+
 # programmable file server
 
 it is file server with user friendly api.
+
+| entrypoint |
+| --- |
+| https://cdn.jsdelivr.net/gh/0wv/programmable-fs@v0.1.0/mod.ts |
+| https://raw.githubusercontent.com/0wv/programmable-fs/v0.1.0/mod.ts |
 
 ## getting started
 
