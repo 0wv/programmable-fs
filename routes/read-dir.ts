@@ -1,6 +1,13 @@
+import type { Context } from '../deps.ts'
+import type { Event, EventType } from '../mod.ts'
 import { prettify } from '../util.ts'
-import type { Context } from 'https://deno.land/x/abc@v1.3.3/mod.ts'
+
 export type EntryType = 'all' | 'd' | 'dir' | 'directory' | 'f' | 'file' | 'l' | 'symlink'
+export type ReadDirEventData = {
+  entries: Deno.DirEntry[]
+  path: string
+}
+
 export async function main (c: Context) {
   const params = new URLSearchParams(c.url.searchParams)
   const path = params.get('path') || '.'
@@ -12,7 +19,8 @@ export async function main (c: Context) {
       ? param
       : 'all'
   )(params.get('entry-type') || 'all') as EntryType
-  const entries = []
+  const type: EventType = 'read-dir'
+  const entries: Deno.DirEntry[] = []
   for await (const entry of Deno.readDir(path)) {
     switch (entryType) {
       case 'all':
@@ -33,8 +41,14 @@ export async function main (c: Context) {
         break
     }
   }
-  return prettify({
+  const readDirEventData: ReadDirEventData = {
     entries,
+    path,
+  }
+  const event: Event = {
+    data: JSON.stringify(readDirEventData),
     result: 0,
-  }, pretty)
+    type,
+  }
+  return prettify(event, pretty)
 }

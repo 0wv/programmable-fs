@@ -2,24 +2,46 @@
 
 it is file server with user friendly api.
 
-## start server
+## getting started
 
-```sh
-deno run \
-  --allow-net \
-  --allow-read \
-  --allow-write \
-  server.ts
+```ts
+import { ProgrammableFS } from './mod.ts'
+
+const server = new ProgrammableFS()
+server.onEvent = event => {
+  switch (event.type) {
+    case 'mkdir':
+      console.log('hook by mkdir')
+      const path = JSON.parse(event.data || '{ path: "" }')
+      console.log(`path: ${path}`)
+      break
+
+    case 'remove':
+    case 'write-text-file':
+      console.log('remove or write')
+      break
+
+    default:
+      console.log(`hook by ${event.type}`)
+      break
+  }
+}
+server.start({ port: 8080 })
 ```
 
-### specify port number
+## examples
+
+### run JS or TS on server side
 
 ```sh
 deno run \
-  --allow-net \
-  --allow-read \
+  --allow-run \
   --allow-write \
-  server.ts 8888
+  ./examples/run-code/server-ts
+```
+
+```sh
+curl "http://localhost:8080/write?data=console.log('hello')&path=hello.js"
 ```
 
 ## apis
